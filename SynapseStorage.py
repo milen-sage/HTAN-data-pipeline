@@ -4,6 +4,9 @@ from typing import Any, Dict, Optional, Text
 # used to generate unique names for entities
 import uuid
 
+# json serialization lib
+import json
+
 # manipulation of dataframes 
 import pandas as pd
 
@@ -15,7 +18,8 @@ from synapseclient.table import build_table
 import synapseutils
 
 from utils import update_df
-from schema_explorer import SchemaExplorer 
+from schema_explorer import SchemaExplorer
+import schema_generator as sg #TODO refactor so that we don't need to import schema generator here
 from config import storage
 
 class SynapseStorage(object):
@@ -206,6 +210,7 @@ class SynapseStorage(object):
         else:
             return manifest[0] # extract manifest tuple from list
 
+    
     def update_dataset_manifest_files(self, dataset_id:str) -> str:
 
         """ Fetch the names and entity IDs of all current files in dataset in store, if any; update dataset's manifest, if any; with new files, if any
@@ -228,7 +233,7 @@ class SynapseStorage(object):
 
         # get current list of files
         dataset_files = self.getFilesInStorageDataset(dataset_id)
-        print(dataset_files)
+        
         # update manifest with additional filenames, if any;    
         # note that if there is an existing manifest and there are files in the dataset the columns Filename and entityId are assumed to be present in manifest schema
         # TODO: use idiomatic panda syntax
@@ -251,7 +256,7 @@ class SynapseStorage(object):
             # update the manifest file, so that it contains the relevant entity IDs
             manifest.to_csv(manifest_filepath, index = False)
 
-            # store manifest and update associated metadata withmanifest on Synapse
+            # store manifest and update associated metadata with manifest on Synapse
             manifest_id = self.associateMetadataWithFiles(manifest_filepath, dataset_id)
             
         return manifest_id
@@ -390,3 +395,94 @@ class SynapseStorage(object):
         manifestSynapseFileId = self.syn.store(manifestSynapseFile).id
 
         return manifestSynapseFileId
+
+    def get_data_preview(self, se:SchemaExplorer):
+        """
+            Get a preview of all data (both files and clinical) across all data storage projects the user has access to.
+            Format the data in JSON according to the file here:
+            TODO: link json file example
+
+            Args:
+                se: schema explorer object to get descriptions of attributes
+        """
+
+        projects = self.getStorageProjects()
+
+        data_preview = {}
+        for (project_id, project_name) in projects:
+
+            datasets = self.getStorageDatasetsInProject(project_id)
+            data_preview[project_name] = {}
+
+            for (dataset_id, dataset_name) in datasets:
+
+                entity = self.syn.get(dataset_id, downloadFile = False)
+                dataset_annotations = entity.annotations
+                print(dataset_annotations)
+                if "dataType" in dataset_annotations and "Component" in dataset_annotations and "dataView" in dataset_annotations:
+                    
+                    data_type = dataset_annotations["dataType"][0]
+                    component = dataset_annotations["Component"][0]
+                    data_link = dataset_annotations["dataView"][0]
+                    
+                    manifest_id = self.getDatasetManifest(dataset_id)[0]
+                    manifest_link = "https://www.synapse.org/#!Synapse:" + manifest_id
+
+                    manifest_filepath = self.syn.get(manifest_id).path
+                    manifest = pd.read_csv(manifest_filepath).fillna("")
+
+                    print(manifest.columns)
+                    if "Filename" in manifest.columns and "entityId" in manifest.columns:
+                        manifest["downloadLink"] = manifest[["entityId"]].apply(lambda x: "https://www.synapse.org/#!Synapse:" + x["entityId"], axis = 1)
+
+                    if not data_type in data_preview:
+                        data_preview_update = {
+                                    data_type:{
+                                        component:{
+                                                    "dataLink":data_link,
+                                                    "data":{
+                                                            "attributes":[],
+                                                            "values":[],
+                                                            "manifest_link": manifest_link
+                                                    }
+                                        }
+                                    }
+                        }
+
+                        data_preview[project_name].update(data_preview_update)
+
+                    # if dataType is assay the manifest should contain column downloadLink, containing links to dataset files on Synapse
+                    # if component is scRNA-seq level 3/4 the manifest should contain column view, containing cBioPortal links
+                    # if data type is imaging the manifest should contain column view, containing imaging links
+
+            
+                    #get data attributes
+                    for attr in manifest.columns:
+                        
+                        description = sg.get_node_definition(se, attr)
+                        if attr == "downloadLink":
+                            description = "Download file from Synapse"
+
+                        # for now this is empty;
+                        # in the future we might inject SEO or other metadata
+                        schema_meta = ""
+
+
+                        attribute = {
+                                "name":attr,
+                                "description":description,
+                                "schemaMetadata":schema_meta
+                        }
+
+                        data_preview[project_name][data_type][component]["data"]["attributes"].append(attribute)
+
+                    data_preview[project_name][data_type][component]["data"]["values"] = manifest.values.tolist()
+            
+
+            if not data_preview[project_name]:
+                del(data_preview[project_name])
+
+        with open("./data/data_preview.json", "w") as js_f:
+            json.dump(data_preview, js_f, indent = 3)
+
+        return data_preview
