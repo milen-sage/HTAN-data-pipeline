@@ -66,4 +66,4 @@ git clone --single-branch --branch organized-into-packages https://github.com/Sa
 
 Modify your files, add them to the staging area, use a descriptive commit message and push to the same branch as a pull request for review.
 
-* Please consult [CONTRIBUTION.md](https://github.com/Sage-Bionetworks/HTAN-data-pipeline/blob/organized-into-packages/CONTRIBUTION.md) for further reference.
+* Please consult [CONTRIBUTION.md](https://github.com/milen-sage/HTAN-data-pipeline/blob/<branch>/CONTRIBUTION.md) for further reference.
