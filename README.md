@@ -61,7 +61,7 @@ python[3] ingresspipe/models/examples/metadata_usage.py
 Clone a copy of the repository here:
       
 ```bash
-git clone --single-branch --branch organized-into-packages https://github.com/Sage-Bionetworks/HTAN-data-pipeline.git
+git clone --single-branch --branch <branch> https://github.com/milen-sage/HTAN-data-pipeline.git
 ```
 
 Modify your files, add them to the staging area, use a descriptive commit message and push to the same branch as a pull request for review.
