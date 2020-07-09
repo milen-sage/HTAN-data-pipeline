@@ -8,10 +8,40 @@
     },
     "@graph": [
         {
-            "@id": "http://schema.org/Thing",
+            "@id": "schema:Text",
+            "@type": [
+                "schema:DataType",
+                "rdfs:Class"
+            ],
+            "rdfs:comment": "Data type: Text.",
+            "rdfs:label": "Text"
+        },
+        {
+            "@id": "schema:Number",
+            "@type": [
+                "schema:DataType",
+                "rdfs:Class"
+            ],
+            "rdfs:comment": "Data type: Number.",
+            "rdfs:label": "Number"
+        },
+        {
+            "@id": "schema:Integer",
             "@type": "rdfs:Class",
-            "rdfs:comment": "The most generic type of item.",
-            "rdfs:label": "Thing"
+            "rdfs:comment": "Data type: Integer.",
+            "rdfs:label": "Integer",
+            "rdfs:subClassOf": {
+                "@id": "schema:Number"
+            }
+        },
+        {
+            "@id": "schema:Thing",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "Thing",
+            "rdfs:label": "Thing",
+            "schema:isPartOf": {
+                "@id": "http://schema.org"
+            }
         },
         {
             "@id": "bts:BiologicalEntity",
@@ -839,6 +869,117 @@
             },
             "schema:isPartOf": {
                 "@id": "http://schema.biothings.io"
+            }
+        },
+        {
+            "@id": "bts:ensembl",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Ensembl ID for gene, protein or transcript",
+            "rdfs:label": "ensembl",
+            "schema:domainIncludes": [
+                {
+                    "@id": "bts:Transcript"
+                }
+            ],
+            "schema:isPartOf": {
+                "@id": "http://schema.biothings.io"
+            },
+            "schema:rangeIncludes": {
+                "@id": "schema:Text"
+            }
+        },
+        {
+            "@id": "bts:hgnc",
+            "@type": "rdf:Property",
+            "rdfs:comment": "HGNC ID for gene",
+            "rdfs:label": "hgnc",
+            "schema:domainIncludes": {
+                "@id": "bts:Gene"
+            },
+            "schema:isPartOf": {
+                "@id": "http://schema.biothings.io"
+            },
+            "schema:rangeIncludes": {
+                "@id": "schema:Integer"
+            }
+        },
+        {
+            "@id": "bts:entrez",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Entrez ID for gene",
+            "rdfs:label": "entrez",
+            "schema:domainIncludes": {
+                "@id": "bts:Gene"
+            },
+            "schema:isPartOf": {
+                "@id": "http://schema.biothings.io"
+            },
+            "schema:rangeIncludes": {
+                "@id": "schema:Integer"
+            }
+        },
+        {
+            "@id": "bts:refseq",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Refseq ID for gene, protein or transcript",
+            "rdfs:label": "refseq",
+            "schema:domainIncludes": [
+                {
+                    "@id": "bts:Transcript"
+                }
+            ],
+            "schema:isPartOf": {
+                "@id": "http://schema.biothings.io"
+            },
+            "schema:rangeIncludes": {
+                "@id": "schema:Text"
+            }
+        },
+        {
+            "@id": "bts:omim",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Refseq ID for gene, protein or transcript",
+            "rdfs:label": "omim",
+            "schema:domainIncludes": [
+                {
+                    "@id": "bts:Disease"
+                }
+            ],
+            "schema:isPartOf": {
+                "@id": "http://schema.biothings.io"
+            },
+            "schema:rangeIncludes": {
+                "@id": "schema:Integer"
+            }
+        },
+        {
+            "@id": "bts:umls",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Refseq ID for gene, protein or transcript",
+            "rdfs:label": "umls",
+            "schema:domainIncludes": {
+                "@id": "bts:Disease"
+            },
+            "schema:isPartOf": {
+                "@id": "http://schema.biothings.io"
+            },
+            "schema:rangeIncludes": {
+                "@id": "schema:Text"
+            }
+        },
+        {
+            "@id": "bts:homologousTo",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Shared ancestry between protein or gene",
+            "rdfs:label": "homologousTo",
+            "schema:domainIncludes": {
+                "@id": "bts:GeneOrGeneProduct"
+            },
+            "schema:isPartOf": {
+                "@id": "http://schema.biothings.io"
+            },
+            "schema:rangeIncludes": {
+                "@id": "bts:GeneOrGeneProduct"
             }
         },
         {
@@ -2123,28 +2264,28 @@
             "sms:required": "sms:false",
             "sms:requiresDependency": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 },
                 {
-                    "@id": "bts:Viralenvelope"
+                    "@id": "bts:ViralEnvelope"
                 },
                 {
-                    "@id": "bts:Receptortropism"
+                    "@id": "bts:ReceptorTropism"
                 },
                 {
-                    "@id": "bts:Knownvirusmutations"
+                    "@id": "bts:KnownVirusMutations"
                 },
                 {
-                    "@id": "bts:Othermarkers"
+                    "@id": "bts:OtherMarkers"
                 }
             ],
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Plasmidname",
+            "@id": "bts:PlasmidName",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED if not latency screen",
-            "rdfs:label": "Plasmidname",
+            "rdfs:label": "PlasmidName",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2188,15 +2329,15 @@
                     "@id": "bts:CH4706mo"
                 }
             ],
-            "sms:displayName": "Plasmid name",
+            "sms:displayName": "Plasmid Name",
             "sms:required": "sms:true",
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Viralenvelope",
+            "@id": "bts:ViralEnvelope",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED if not latency screen",
-            "rdfs:label": "Viralenvelope",
+            "rdfs:label": "ViralEnvelope",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2213,15 +2354,15 @@
                     "@id": "bts:VSVG"
                 }
             ],
-            "sms:displayName": "Viral envelope",
+            "sms:displayName": "Viral Envelope",
             "sms:required": "sms:true",
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Receptortropism",
+            "@id": "bts:ReceptorTropism",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED if not latency screen",
-            "rdfs:label": "Receptortropism",
+            "rdfs:label": "ReceptorTropism",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2241,15 +2382,15 @@
                     "@id": "bts:NA"
                 }
             ],
-            "sms:displayName": "Receptor tropism",
+            "sms:displayName": "Receptor Tropism",
             "sms:required": "sms:true",
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Knownvirusmutations",
+            "@id": "bts:KnownVirusMutations",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED if not latency screen",
-            "rdfs:label": "Knownvirusmutations",
+            "rdfs:label": "KnownVirusMutations",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2281,17 +2422,17 @@
                     "@id": "bts:CA-P90A"
                 }
             ],
-            "sms:displayName": "Known virus mutations",
+            "sms:displayName": "Known Virus Mutations",
             "sms:required": "sms:true",
             "sms:validationRules": [
                 "list"
             ]
         },
         {
-            "@id": "bts:Othermarkers",
+            "@id": "bts:OtherMarkers",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED if not latency screen",
-            "rdfs:label": "Othermarkers",
+            "rdfs:label": "OtherMarkers",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2314,7 +2455,7 @@
                     "@id": "bts:DTomato"
                 }
             ],
-            "sms:displayName": "Other markers",
+            "sms:displayName": "Other Markers",
             "sms:required": "sms:true",
             "sms:validationRules": [
                 "list"
@@ -2338,10 +2479,10 @@
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Libraryname",
+            "@id": "bts:LibraryName",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED",
-            "rdfs:label": "Libraryname",
+            "rdfs:label": "LibraryName",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2367,15 +2508,15 @@
                     "@id": "bts:HIVCA+TRIMs"
                 }
             ],
-            "sms:displayName": "Library name",
+            "sms:displayName": "Library Name",
             "sms:required": "sms:true",
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Vectorbackbone",
+            "@id": "bts:VectorBackbone",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED",
-            "rdfs:label": "Vectorbackbone",
+            "rdfs:label": "VectorBackbone",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2398,15 +2539,15 @@
                     "@id": "bts:HIVCRISPR-optTrac"
                 }
             ],
-            "sms:displayName": "Vector backbone",
+            "sms:displayName": "Vector Backbone",
             "sms:required": "sms:true",
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Barcodeversion",
+            "@id": "bts:BarcodeVersion",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED",
-            "rdfs:label": "Barcodeversion",
+            "rdfs:label": "BarcodeVersion",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2426,15 +2567,15 @@
                     "@id": "bts:3"
                 }
             ],
-            "sms:displayName": "Barcode version",
+            "sms:displayName": "Barcode Version",
             "sms:required": "sms:true",
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Barcodesequence",
+            "@id": "bts:BarcodeSequence",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED",
-            "rdfs:label": "Barcodesequence",
+            "rdfs:label": "BarcodeSequence",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2805,7 +2946,7 @@
                     "@id": "bts:3CCGACAAC"
                 }
             ],
-            "sms:displayName": "Barcode sequence",
+            "sms:displayName": "Barcode Sequence",
             "sms:required": "sms:true",
             "sms:validationRules": []
         },
@@ -2827,10 +2968,10 @@
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Drugoragent",
+            "@id": "bts:DrugorAgent",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED",
-            "rdfs:label": "Drugoragent",
+            "rdfs:label": "DrugorAgent",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2880,17 +3021,17 @@
                     "@id": "bts:AZD4573"
                 }
             ],
-            "sms:displayName": "Drug or agent",
+            "sms:displayName": "Drug or Agent",
             "sms:required": "sms:true",
             "sms:validationRules": [
                 "list"
             ]
         },
         {
-            "@id": "bts:Collectionday",
+            "@id": "bts:CollectionDay",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED",
-            "rdfs:label": "Collectionday",
+            "rdfs:label": "CollectionDay",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2899,15 +3040,15 @@
             "schema:isPartOf": {
                 "@id": "http://schema.biothings.io"
             },
-            "sms:displayName": "Collection day",
+            "sms:displayName": "Collection Day",
             "sms:required": "sms:true",
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Percentvirusinfection",
+            "@id": "bts:PercentVirusInfection",
             "@type": "rdfs:Class",
             "rdfs:comment": "TBD",
-            "rdfs:label": "Percentvirusinfection",
+            "rdfs:label": "PercentVirusInfection",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2916,7 +3057,7 @@
             "schema:isPartOf": {
                 "@id": "http://schema.biothings.io"
             },
-            "sms:displayName": "Percent virus infection",
+            "sms:displayName": "Percent Virus Infection",
             "sms:required": "sms:false",
             "sms:validationRules": []
         },
@@ -2938,10 +3079,10 @@
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Replicatenumber",
+            "@id": "bts:ReplicateNumber",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED",
-            "rdfs:label": "Replicatenumber",
+            "rdfs:label": "ReplicateNumber",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2950,15 +3091,15 @@
             "schema:isPartOf": {
                 "@id": "http://schema.biothings.io"
             },
-            "sms:displayName": "Replicate number",
+            "sms:displayName": "Replicate Number",
             "sms:required": "sms:true",
             "sms:validationRules": []
         },
         {
-            "@id": "bts:Sampletype",
+            "@id": "bts:SampleType",
             "@type": "rdfs:Class",
             "rdfs:comment": "REQUIRED",
-            "rdfs:label": "Sampletype",
+            "rdfs:label": "SampleType",
             "rdfs:subClassOf": [
                 {
                     "@id": "schema:Thing"
@@ -2975,7 +3116,7 @@
                     "@id": "bts:VRNA"
                 }
             ],
-            "sms:displayName": "Sample type",
+            "sms:displayName": "Sample Type",
             "sms:required": "sms:true",
             "sms:validationRules": []
         },
@@ -3005,22 +3146,13 @@
                     "@id": "bts:Experimenter"
                 },
                 {
-                    "@id": "bts:Collectionday"
+                    "@id": "bts:CollectionDay"
                 },
                 {
-                    "@id": "bts:SampleInfo"
-                },
-                {
-                    "@id": "bts:Sampletype"
+                    "@id": "bts:SampleType"
                 },
                 {
                     "@id": "bts:CellType"
-                },
-                {
-                    "@id": "bts:TargetCellInfo"
-                },
-                {
-                    "@id": "bts:VirusInfo"
                 },
                 {
                     "@id": "bts:PercentVirusInfection"
@@ -3032,13 +3164,13 @@
                     "@id": "bts:LibraryName"
                 },
                 {
-                    "@id": "bts:Vectorbackbone"
+                    "@id": "bts:VectorBackbone"
                 },
                 {
-                    "@id": "bts:Barcodeversion"
+                    "@id": "bts:BarcodeVersion"
                 },
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 },
                 {
                     "@id": "bts:CloneName"
@@ -3050,10 +3182,10 @@
                     "@id": "bts:GenesOverexpressed"
                 },
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 },
                 {
-                    "@id": "bts:Replicatenumber"
+                    "@id": "bts:ReplicateNumber"
                 }
             ],
             "sms:validationRules": []
@@ -3439,7 +3571,7 @@
             "rdfs:label": "LAI",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 }
             ],
             "schema:isPartOf": {
@@ -3456,7 +3588,7 @@
             "rdfs:label": "Q23.BG505",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 }
             ],
             "schema:isPartOf": {
@@ -3473,7 +3605,7 @@
             "rdfs:label": "SIVcpzLB715",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 }
             ],
             "schema:isPartOf": {
@@ -3490,7 +3622,7 @@
             "rdfs:label": "SIVcpzEK505",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 }
             ],
             "schema:isPartOf": {
@@ -3507,7 +3639,7 @@
             "rdfs:label": "N74D",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 }
             ],
             "schema:isPartOf": {
@@ -3524,7 +3656,7 @@
             "rdfs:label": "P90A",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 }
             ],
             "schema:isPartOf": {
@@ -3541,7 +3673,7 @@
             "rdfs:label": "SIVcpzCP2139",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 }
             ],
             "schema:isPartOf": {
@@ -3558,7 +3690,7 @@
             "rdfs:label": "NL43macCA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 }
             ],
             "schema:isPartOf": {
@@ -3575,7 +3707,7 @@
             "rdfs:label": "NL43HIV123CA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 }
             ],
             "schema:isPartOf": {
@@ -3592,7 +3724,7 @@
             "rdfs:label": "CH470TF",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 }
             ],
             "schema:isPartOf": {
@@ -3609,7 +3741,7 @@
             "rdfs:label": "CH4706mo",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Plasmidname"
+                    "@id": "bts:PlasmidName"
                 }
             ],
             "schema:isPartOf": {
@@ -3626,7 +3758,7 @@
             "rdfs:label": "HIV",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Viralenvelope"
+                    "@id": "bts:ViralEnvelope"
                 }
             ],
             "schema:isPartOf": {
@@ -3643,7 +3775,7 @@
             "rdfs:label": "VSVG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Viralenvelope"
+                    "@id": "bts:ViralEnvelope"
                 }
             ],
             "schema:isPartOf": {
@@ -3660,7 +3792,7 @@
             "rdfs:label": "CXCR4",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Receptortropism"
+                    "@id": "bts:ReceptorTropism"
                 }
             ],
             "schema:isPartOf": {
@@ -3677,7 +3809,7 @@
             "rdfs:label": "NA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Receptortropism"
+                    "@id": "bts:ReceptorTropism"
                 }
             ],
             "schema:isPartOf": {
@@ -3694,7 +3826,7 @@
             "rdfs:label": "DelVpr",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Knownvirusmutations"
+                    "@id": "bts:KnownVirusMutations"
                 }
             ],
             "schema:isPartOf": {
@@ -3711,7 +3843,7 @@
             "rdfs:label": "DelVpu",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Knownvirusmutations"
+                    "@id": "bts:KnownVirusMutations"
                 }
             ],
             "schema:isPartOf": {
@@ -3728,7 +3860,7 @@
             "rdfs:label": "DelVif",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Knownvirusmutations"
+                    "@id": "bts:KnownVirusMutations"
                 }
             ],
             "schema:isPartOf": {
@@ -3745,7 +3877,7 @@
             "rdfs:label": "DelNef",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Knownvirusmutations"
+                    "@id": "bts:KnownVirusMutations"
                 }
             ],
             "schema:isPartOf": {
@@ -3762,7 +3894,7 @@
             "rdfs:label": "CA-N74D",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Knownvirusmutations"
+                    "@id": "bts:KnownVirusMutations"
                 }
             ],
             "schema:isPartOf": {
@@ -3779,7 +3911,7 @@
             "rdfs:label": "CA-P90A",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Knownvirusmutations"
+                    "@id": "bts:KnownVirusMutations"
                 }
             ],
             "schema:isPartOf": {
@@ -3796,7 +3928,7 @@
             "rdfs:label": "GFP",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Othermarkers"
+                    "@id": "bts:OtherMarkers"
                 }
             ],
             "schema:isPartOf": {
@@ -3813,7 +3945,7 @@
             "rdfs:label": "MCherry",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Othermarkers"
+                    "@id": "bts:OtherMarkers"
                 }
             ],
             "schema:isPartOf": {
@@ -3830,7 +3962,7 @@
             "rdfs:label": "DTomato",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Othermarkers"
+                    "@id": "bts:OtherMarkers"
                 }
             ],
             "schema:isPartOf": {
@@ -3847,7 +3979,7 @@
             "rdfs:label": "PIKA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Libraryname"
+                    "@id": "bts:LibraryName"
                 }
             ],
             "schema:isPartOf": {
@@ -3864,7 +3996,7 @@
             "rdfs:label": "TKOV3",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Libraryname"
+                    "@id": "bts:LibraryName"
                 }
             ],
             "schema:isPartOf": {
@@ -3881,7 +4013,7 @@
             "rdfs:label": "HUEPI",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Libraryname"
+                    "@id": "bts:LibraryName"
                 }
             ],
             "schema:isPartOf": {
@@ -3898,7 +4030,7 @@
             "rdfs:label": "HIVDEP",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Libraryname"
+                    "@id": "bts:LibraryName"
                 }
             ],
             "schema:isPartOf": {
@@ -3915,7 +4047,7 @@
             "rdfs:label": "HIVCA+TRIMs",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Libraryname"
+                    "@id": "bts:LibraryName"
                 }
             ],
             "schema:isPartOf": {
@@ -3932,7 +4064,7 @@
             "rdfs:label": "HIVCRISPR",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Vectorbackbone"
+                    "@id": "bts:VectorBackbone"
                 }
             ],
             "schema:isPartOf": {
@@ -3949,7 +4081,7 @@
             "rdfs:label": "TOP",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Vectorbackbone"
+                    "@id": "bts:VectorBackbone"
                 }
             ],
             "schema:isPartOf": {
@@ -3966,7 +4098,7 @@
             "rdfs:label": "LentiCRISPRv2",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Vectorbackbone"
+                    "@id": "bts:VectorBackbone"
                 }
             ],
             "schema:isPartOf": {
@@ -3983,7 +4115,7 @@
             "rdfs:label": "HIVCRISPR-optTrac",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Vectorbackbone"
+                    "@id": "bts:VectorBackbone"
                 }
             ],
             "schema:isPartOf": {
@@ -4000,7 +4132,7 @@
             "rdfs:label": "1",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodeversion"
+                    "@id": "bts:BarcodeVersion"
                 }
             ],
             "schema:isPartOf": {
@@ -4017,7 +4149,7 @@
             "rdfs:label": "2",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodeversion"
+                    "@id": "bts:BarcodeVersion"
                 }
             ],
             "schema:isPartOf": {
@@ -4034,7 +4166,7 @@
             "rdfs:label": "3",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodeversion"
+                    "@id": "bts:BarcodeVersion"
                 }
             ],
             "schema:isPartOf": {
@@ -4051,7 +4183,7 @@
             "rdfs:label": "1GCCAAT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4068,7 +4200,7 @@
             "rdfs:label": "1TAGCTT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4085,7 +4217,7 @@
             "rdfs:label": "1GGCTAC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4102,7 +4234,7 @@
             "rdfs:label": "1TTAGGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4119,7 +4251,7 @@
             "rdfs:label": "1GATCAG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4136,7 +4268,7 @@
             "rdfs:label": "1GAGTGG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4153,7 +4285,7 @@
             "rdfs:label": "1AGTCAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4170,7 +4302,7 @@
             "rdfs:label": "1AGTTCC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4187,7 +4319,7 @@
             "rdfs:label": "1ACAGTG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4204,7 +4336,7 @@
             "rdfs:label": "1CTTGTA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4221,7 +4353,7 @@
             "rdfs:label": "1CAGATC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4238,7 +4370,7 @@
             "rdfs:label": "1CGTACG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4255,7 +4387,7 @@
             "rdfs:label": "1GTCCGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4272,7 +4404,7 @@
             "rdfs:label": "1TGACCA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4289,7 +4421,7 @@
             "rdfs:label": "1ACTTGA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4306,7 +4438,7 @@
             "rdfs:label": "1CCGTCC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4323,7 +4455,7 @@
             "rdfs:label": "1ATTCCT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4340,7 +4472,7 @@
             "rdfs:label": "1ACTGAT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4357,7 +4489,7 @@
             "rdfs:label": "1CGATGT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4374,7 +4506,7 @@
             "rdfs:label": "1ATCACG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4391,7 +4523,7 @@
             "rdfs:label": "1GTTTCG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4408,7 +4540,7 @@
             "rdfs:label": "1ATGTCA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4425,7 +4557,7 @@
             "rdfs:label": "1GTGGCC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4442,7 +4574,7 @@
             "rdfs:label": "1GTGAAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4459,7 +4591,7 @@
             "rdfs:label": "2ATCACG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4476,7 +4608,7 @@
             "rdfs:label": "2CGATGT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4493,7 +4625,7 @@
             "rdfs:label": "2TTAGGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4510,7 +4642,7 @@
             "rdfs:label": "2TGACCA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4527,7 +4659,7 @@
             "rdfs:label": "2ACAGTG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4544,7 +4676,7 @@
             "rdfs:label": "2GCCAAT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4561,7 +4693,7 @@
             "rdfs:label": "2CAGATC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4578,7 +4710,7 @@
             "rdfs:label": "2ACTTGA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4595,7 +4727,7 @@
             "rdfs:label": "2GATCAG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4612,7 +4744,7 @@
             "rdfs:label": "2TAGCTT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4629,7 +4761,7 @@
             "rdfs:label": "2GGCTAC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4646,7 +4778,7 @@
             "rdfs:label": "2CTTGTA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4663,7 +4795,7 @@
             "rdfs:label": "2AGTCAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4680,7 +4812,7 @@
             "rdfs:label": "2AGTTCC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4697,7 +4829,7 @@
             "rdfs:label": "2ATGTCA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4714,7 +4846,7 @@
             "rdfs:label": "2CCGTCC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4731,7 +4863,7 @@
             "rdfs:label": "2GTAGAG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4748,7 +4880,7 @@
             "rdfs:label": "2GTCCGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4765,7 +4897,7 @@
             "rdfs:label": "2GTGAAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4782,7 +4914,7 @@
             "rdfs:label": "2GTGGCC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4799,7 +4931,7 @@
             "rdfs:label": "2GTTTCG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4816,7 +4948,7 @@
             "rdfs:label": "2CGTACG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4833,7 +4965,7 @@
             "rdfs:label": "2GAGTGG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4850,7 +4982,7 @@
             "rdfs:label": "2GGTAGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4867,7 +4999,7 @@
             "rdfs:label": "2ACTGAT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4884,7 +5016,7 @@
             "rdfs:label": "2ATGAGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4901,7 +5033,7 @@
             "rdfs:label": "2ATTCCT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4918,7 +5050,7 @@
             "rdfs:label": "2CAAAAG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4935,7 +5067,7 @@
             "rdfs:label": "2CAACTA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4952,7 +5084,7 @@
             "rdfs:label": "2CACCGG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4969,7 +5101,7 @@
             "rdfs:label": "2CACGAT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -4986,7 +5118,7 @@
             "rdfs:label": "2CACTCA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5003,7 +5135,7 @@
             "rdfs:label": "2CAGGCG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5020,7 +5152,7 @@
             "rdfs:label": "2CATGGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5037,7 +5169,7 @@
             "rdfs:label": "2CATTTT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5054,7 +5186,7 @@
             "rdfs:label": "2CCAACA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5071,7 +5203,7 @@
             "rdfs:label": "2CGGAAT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5088,7 +5220,7 @@
             "rdfs:label": "2CTAGCT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5105,7 +5237,7 @@
             "rdfs:label": "2CTATAC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5122,7 +5254,7 @@
             "rdfs:label": "2CTCAGA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5139,7 +5271,7 @@
             "rdfs:label": "2GACGAC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5156,7 +5288,7 @@
             "rdfs:label": "2TAATCG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5173,7 +5305,7 @@
             "rdfs:label": "2TACAGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5190,7 +5322,7 @@
             "rdfs:label": "2TATAAT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5207,7 +5339,7 @@
             "rdfs:label": "2TCATTC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5224,7 +5356,7 @@
             "rdfs:label": "2TCCCGA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5241,7 +5373,7 @@
             "rdfs:label": "2TCGAAG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5258,7 +5390,7 @@
             "rdfs:label": "2TCGGCA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5275,7 +5407,7 @@
             "rdfs:label": "3ATGCCTAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5292,7 +5424,7 @@
             "rdfs:label": "3GAATCTGA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5309,7 +5441,7 @@
             "rdfs:label": "3AACGTGAT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5326,7 +5458,7 @@
             "rdfs:label": "3CACTTCGA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5343,7 +5475,7 @@
             "rdfs:label": "3GCCAAGAC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5360,7 +5492,7 @@
             "rdfs:label": "3GACTAGTA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5377,7 +5509,7 @@
             "rdfs:label": "3ATTGGCTC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5394,7 +5526,7 @@
             "rdfs:label": "3GATGAATC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5411,7 +5543,7 @@
             "rdfs:label": "3AGCAGGAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5428,7 +5560,7 @@
             "rdfs:label": "3GAGCTGAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5445,7 +5577,7 @@
             "rdfs:label": "3AAACATCG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5462,7 +5594,7 @@
             "rdfs:label": "3GAGTTAGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5479,7 +5611,7 @@
             "rdfs:label": "3CGAACTTA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5496,7 +5628,7 @@
             "rdfs:label": "3GATAGACA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5513,7 +5645,7 @@
             "rdfs:label": "3AAGGACAC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5530,7 +5662,7 @@
             "rdfs:label": "3GACAGTGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5547,7 +5679,7 @@
             "rdfs:label": "3ATCATTCC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5564,7 +5696,7 @@
             "rdfs:label": "3GCCACATA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5581,7 +5713,7 @@
             "rdfs:label": "3ACCACTGT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5598,7 +5730,7 @@
             "rdfs:label": "3CTGGCATA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5615,7 +5747,7 @@
             "rdfs:label": "3ACCTCCAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5632,7 +5764,7 @@
             "rdfs:label": "3GCGAGTAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5649,7 +5781,7 @@
             "rdfs:label": "3ACTATGCA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5666,7 +5798,7 @@
             "rdfs:label": "3CGGATTGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5683,7 +5815,7 @@
             "rdfs:label": "3AACTCACC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5700,7 +5832,7 @@
             "rdfs:label": "3GCTAACGA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5717,7 +5849,7 @@
             "rdfs:label": "3CAGATCTG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5734,7 +5866,7 @@
             "rdfs:label": "3ATCCTGTA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5751,7 +5883,7 @@
             "rdfs:label": "3CTGTAGCC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5768,7 +5900,7 @@
             "rdfs:label": "3GCTCGGTA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5785,7 +5917,7 @@
             "rdfs:label": "3ACACGACC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5802,7 +5934,7 @@
             "rdfs:label": "3AGTCACTA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5819,7 +5951,7 @@
             "rdfs:label": "3AACGCTTA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5836,7 +5968,7 @@
             "rdfs:label": "3GGAGAACA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5853,7 +5985,7 @@
             "rdfs:label": "3CATCAAGT",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5870,7 +6002,7 @@
             "rdfs:label": "3AAGGTACA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5887,7 +6019,7 @@
             "rdfs:label": "3CGCTGATC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5904,7 +6036,7 @@
             "rdfs:label": "3GGTGCGAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5921,7 +6053,7 @@
             "rdfs:label": "3CCTAATCC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5938,7 +6070,7 @@
             "rdfs:label": "3CTGAGCCA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5955,7 +6087,7 @@
             "rdfs:label": "3AGCCATGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5972,7 +6104,7 @@
             "rdfs:label": "3GTACGCAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -5989,7 +6121,7 @@
             "rdfs:label": "3AGTACAAG",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -6006,7 +6138,7 @@
             "rdfs:label": "3ACATTGGC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -6023,7 +6155,7 @@
             "rdfs:label": "3ATTGAGGA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -6040,7 +6172,7 @@
             "rdfs:label": "3GTCGTAGA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -6057,7 +6189,7 @@
             "rdfs:label": "3AGAGTCAA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -6074,7 +6206,7 @@
             "rdfs:label": "3CCGACAAC",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Barcodesequence"
+                    "@id": "bts:BarcodeSequence"
                 }
             ],
             "schema:isPartOf": {
@@ -6091,7 +6223,7 @@
             "rdfs:label": "IFNalpha",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6108,7 +6240,7 @@
             "rdfs:label": "IFNbeta",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6125,7 +6257,7 @@
             "rdfs:label": "JQ1",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6142,7 +6274,7 @@
             "rdfs:label": "SAHA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6159,7 +6291,7 @@
             "rdfs:label": "AZD5582",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6176,7 +6308,7 @@
             "rdfs:label": "HMBA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6193,7 +6325,7 @@
             "rdfs:label": "GSK-343",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6210,7 +6342,7 @@
             "rdfs:label": "EPZ-6438",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6227,7 +6359,7 @@
             "rdfs:label": "UNC-0638",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6244,7 +6376,7 @@
             "rdfs:label": "GSKJ4",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6261,7 +6393,7 @@
             "rdfs:label": "MG-149",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6278,7 +6410,7 @@
             "rdfs:label": "AZD4573",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Drugoragent"
+                    "@id": "bts:DrugorAgent"
                 }
             ],
             "schema:isPartOf": {
@@ -6295,7 +6427,7 @@
             "rdfs:label": "GDNA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Sampletype"
+                    "@id": "bts:SampleType"
                 }
             ],
             "schema:isPartOf": {
@@ -6312,47 +6444,13 @@
             "rdfs:label": "VRNA",
             "rdfs:subClassOf": [
                 {
-                    "@id": "bts:Sampletype"
+                    "@id": "bts:SampleType"
                 }
             ],
             "schema:isPartOf": {
                 "@id": "http://schema.biothings.io"
             },
             "sms:displayName": "vRNA",
-            "sms:required": "sms:false",
-            "sms:validationRules": []
-        },
-        {
-            "@id": "bts:PercentVirusInfection",
-            "@type": "rdfs:Class",
-            "rdfs:comment": "TBD",
-            "rdfs:label": "PercentVirusInfection",
-            "rdfs:subClassOf": [
-                {
-                    "@id": "bts:FHA-HIV"
-                }
-            ],
-            "schema:isPartOf": {
-                "@id": "http://schema.biothings.io"
-            },
-            "sms:displayName": "Percent Virus Infection",
-            "sms:required": "sms:false",
-            "sms:validationRules": []
-        },
-        {
-            "@id": "bts:LibraryName",
-            "@type": "rdfs:Class",
-            "rdfs:comment": "TBD",
-            "rdfs:label": "LibraryName",
-            "rdfs:subClassOf": [
-                {
-                    "@id": "bts:FHA-HIV"
-                }
-            ],
-            "schema:isPartOf": {
-                "@id": "http://schema.biothings.io"
-            },
-            "sms:displayName": "Library Name",
             "sms:required": "sms:false",
             "sms:validationRules": []
         }

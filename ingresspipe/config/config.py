@@ -14,7 +14,7 @@ storage = {
 
 model = {
     "input": {
-        "model_location": "./data/schema_org_schemas/HTAN.jsonld",
+        "model_location": "./data/schema_org_schemas/HIV.jsonld",
         "model_file_type": "local"
     },
     "demo": {
@@ -26,7 +26,8 @@ model = {
 }
 
 schema = {
-    "schemaLocation": "./schemas/HTAN.jsonld"
+    #"schemaLocation": "./schemas/HTAN.jsonld"
+    "schemaLocation": "./schemas/HIV.jsonld"
 }
 
 # app and manifest style (colors, alignments, etc.)
